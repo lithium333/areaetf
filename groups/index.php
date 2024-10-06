@@ -32,8 +32,13 @@ $cssvers = file_get_contents("../style.inf");
 
 <body>
 	<h1 style="text-align: center;"><?php echo $msg['desc']; ?></h1>
-	<div class='container_t'><b><a style="text-decoration: none; color:#FF0000;" href='/areaetf'>MAIN MENU</a></b></div>
+	<div class='container_t'><b><a style="text-decoration: none; color:#FF0000;" href='/areaetf<?php if(isset($_GET['en'])) echo "?en"; ?>'>MAIN MENU</a></b></div>
 	<?php
+	if($_GET["id"]) {
+		echo "<div class='container_t'><b><a style=\"text-decoration: none; color:#003F7F;\" href='/areaetf/groups";
+		if(isset($_GET['en'])) echo "?en";
+		echo "'>ALL ETF GROUPS</a></b></div>\n";
+		}
 	$jcont=file_get_contents($fname);
 	$jdata=json_decode($jcont,true);
 	foreach ($jdata as $jkey => $jval) {
