@@ -40,7 +40,9 @@ $cssvers = file_get_contents("../style.inf");
 		echo "'>ALL ETF GROUPS</a></b></div>\n";
 		}
 	$jcont=file_get_contents($fname);
+	$jshared=file_get_contents("shared.json");
 	$jdata=json_decode($jcont,true);
+	$jshdata=json_decode($jshared,true);
 	foreach ($jdata as $jkey => $jval) {
 		// check if separator
 		if($jval["type"]=="S") {
@@ -51,6 +53,9 @@ $cssvers = file_get_contents("../style.inf");
 				if(isset($_GET['en']))
 					echo "&en";
 				echo "'>".htmlentities($jval["name"])."</a></div>\n";
+			} else if($jval["link"][0]=="#") {
+				$jval2=$jshdata[$jkey];
+				echo "<div class='container_t'>👥&nbsp;<a href='".$jval2["link"]."' target='_blank'>".htmlentities($jval2["name"])."</a></div>\n";
 			} else {
 				echo "<div class='container_t'>👥&nbsp;<a href='".$jval["link"]."' target='_blank'>".htmlentities($jval["name"])."</a></div>\n";
 			}
